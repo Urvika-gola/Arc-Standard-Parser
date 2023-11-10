@@ -83,11 +83,11 @@ class LessDummyParser(Parser):
         pass
 
     def find_head(self, idx, tokens, xpos, root_index):
-        if xpos[idx] is 'None':
+        if xpos[idx] == 'None' or xpos[idx] is None:
             return None
-        if xpos[idx].startswith("N") and xpos[idx - 1].startswith("V") and idx > 0 and xpos[idx - 1]:
+        if xpos[idx].startswith("N") and xpos[idx - 1] and xpos[idx - 1].startswith("V") and idx > 0:
             return idx - 1
-        if xpos[idx].startswith("N") and xpos[idx + 1] and idx < len(tokens) - 1  and xpos[idx + 1].startswith("V"):
+        if xpos[idx].startswith("N") and idx + 1 < len(tokens) - 1 and xpos[idx + 1] and idx < len(tokens) - 1 and xpos[idx + 1].startswith("V"):
             if idx + 1 != root_index:
                 return idx + 1
         if xpos[idx].startswith("RB") and idx < len(tokens) - 1 and xpos[idx + 1] and xpos[idx + 1].startswith("V"):
